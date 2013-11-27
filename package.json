@@ -1,0 +1,17 @@
+{
+  "name": "strava-geojsonio",
+  "version": "0.0.0",
+  "dependencies": {
+    "express": "3.4.4",
+    "request": "2.27.0",
+    "underscore": "1.5.2"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}

@@ -1,0 +1,7 @@
+<h3> Lets play with Strava data</h3>
+
+<div>
+    <a href="https://www.strava.com/oauth/authorize?client_id=196&response_type=code&redirect_uri=<%= url %>/token-exchange&scope=view_private&state=registered&approval_prompt=auto">
+        <img src="/images/ConnectWithStrava.png">
+    </a>
+</div>
