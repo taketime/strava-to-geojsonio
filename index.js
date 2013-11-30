@@ -48,7 +48,7 @@ app.get('/token-exchange', function(req, res) {
             getActivityStream(_(activities).first().id, function(err, act) {
                 if (err) res.send(500);
                 // Send it over to geojson.io
-                res.redirect("http://geojson.io/#data=data:application/json," + encodeURIComponent(JSON.stringify(act));
+                res.redirect("http://geojson.io/#data=data:application/json," + encodeURIComponent(JSON.stringify(act)));
             });
         });
     });
