@@ -6,6 +6,9 @@ var templates = require('./lib/templates');
 var app = express();
 
 // var settings = JSON.parse(fs.readFileSync('stravaSettings.json', 'utf-8'));
+// console.log("param1", process.env.PARAM1);
+// console.log("param2", process.env.PARAM2);
+// console.log("param3", process.env.PARAM3);
 
 app.use(express.static('assets'));
 app.use(express.cookieParser());
@@ -120,5 +123,5 @@ function getActivityStream(opts, callback) {
     });
 }
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 console.log('Listening on port 3000');
