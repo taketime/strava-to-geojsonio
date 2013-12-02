@@ -11,15 +11,13 @@ app.use(express.static('assets'));
 app.use(express.cookieParser());
 app.use(express.session({ secret: 'joanie' }));
 
-var token;
-
 // Prompt user to authenticate with Strava.
 app.get('/', function(req, res) {
     res.send(templates['Home']({ url: settings.url }));
 });
 
-// Handle Strava token exchange.
-app.get('/token-exchange', function(req, res) {
+// Do Strava token exchange, and return a page of activities
+app.get('/activities', function(req, res) {
     request.post({
         url: 'https://www.strava.com/oauth/token',
         form: {
@@ -30,43 +28,71 @@ app.get('/token-exchange', function(req, res) {
     }, function(err, resp) {
         if (err) res.send(500);
 
-        token = JSON.parse(resp.body).access_token;
-        req.session.token = token;
-
-        // For now, just spit back activities.
-        request.get({
-            url: 'https://www.strava.com/api/v3/athlete/activities',
-            headers: {
-                'Authorization': 'access_token ' + token
+        try {
+            var tok = JSON.parse(resp.body);
+            req.session.token = tok.access_token;
+        } catch (err) {
+            res.send(500);
+        }
+        getActivities({ token: req.session.token }, function(err, acts) {
+            if (err) {
+                res.send(500)
+            } else {
+                res.send(templates['Activities']({ activities: acts }));
             }
-        }, function(err, resp) {
-            if (err) res.send(500);
-
-            var activities = JSON.parse(resp.body);
-
-            // Just grab whatever the first activity is for now
-            getActivityStream(_(activities).first().id, function(err, act) {
-                if (err) res.send(500);
-                // Send it over to geojson.io
-                res.redirect("http://geojson.io/#data=data:application/json," + encodeURIComponent(JSON.stringify(act)));
-            });
         });
     });
 });
 
-// Get an activity "stream"
-function getActivityStream(id, callback) {
+// Send an activity to geojson.io
+app.get('/activity/:id', function(req, res) {
+    getActivityStream({ id: req.params.id, token: req.session.token }, function(err, act) {
+        if (err) {
+            res.send(500);
+        } else {
+            res.redirect("http://geojson.io/#data=data:application/json," + encodeURIComponent(JSON.stringify(act)));
+        }
+    });
+});
+
+// Get some activities
+function getActivities(opts, callback) {
+    var page = opts.page || 1;
     request.get({
-        url: 'https://www.strava.com/api/v3/activities/' + id + '/streams/latlng',
+        url: 'https://www.strava.com/api/v3/athlete/activities?per_page=100&page=' + page,
         headers: {
-            'Authorization': 'access_token ' + token
+           'Authorization': 'access_token ' + opts.token
+        }
+    }, function(err, resp) {
+        if (err) return callback(err);
+
+        try {
+            var activities = JSON.parse(resp.body);
+        } catch (err) {
+            return callback(err);
+        }
+        callback(null, activities);
+    });
+}
+
+// Get an activity "stream"
+// This forces geojson structure on data from Strava.
+// Ask if they're open to returning geojson. It'd be nice.
+function getActivityStream(opts, callback) {
+    request.get({
+        url: 'https://www.strava.com/api/v3/activities/' + opts.id + '/streams/latlng',
+        headers: {
+            'Authorization': 'access_token ' + opts.token
         }
     }, function(err, resp) {
         if (err) return callback(err);
 
         // parse the activity
-        // @TODO error check!
-        var stream = JSON.parse(resp.body);
+        try {
+            var stream = JSON.parse(resp.body);
+        } catch (err) {
+            return callback(err);
+        }
 
         // Force geojson structure.
         var geojson = {};
@@ -81,9 +107,10 @@ function getActivityStream(id, callback) {
         feat.geometry.coordinates = [];
         feat.geometry.coordinates[0] = [];
 
-        // add arays of points
-        for (var pt in stream[0].data) {
-            feat.geometry.coordinates[0].push(stream[0].data[pt].reverse());    //Strava points are in reverse order
+        // add arrays of points
+        for (var i = 0; i < stream[0].data.length; i++) {
+            //Strava points are reversed
+            feat.geometry.coordinates[0].push(stream[0].data[i].reverse());
         }
 
         // Shove in the feature

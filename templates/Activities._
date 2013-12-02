@@ -1,0 +1,29 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <title>Strava to geojson.io</title>
+</head>
+<body>
+
+<h3>Activities (runs or rides)</h3>
+
+<table id="activities">
+    <tr>
+        <td>Date</td>
+        <td>Activity Name</td>
+        <td>Type</td>
+    </tr>
+    <% _(activities).each(function(act) { %>
+    <tr>
+        <td><%= act.start_date %></td>
+        <td><a href="/activity/<%= act.id %>"><%= act.name %></a></td>
+        <td><%= act.type %></td>
+    </tr>
+    <% }); %>
+</table>
+
+<!-- TODO add deauth button -->
+
+</body>
+</html>
