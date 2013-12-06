@@ -1,6 +1,4 @@
-var _ = require('underscore');
 var express = require('express');
-var fs = require('fs');
 var request = require('request');
 var templates = require('./lib/templates');
 var app = express();
