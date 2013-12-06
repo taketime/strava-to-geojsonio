@@ -6,9 +6,9 @@
   <link href='//mapbox.com/base/latest/base.css' rel='stylesheet' />
 </head>
 <body>
-<h2>Send a Strava activity to geojson.io</h2>
-<p>First, you'll need to authenticate with Strava.</p>
-<div>
+<h2 class="center">Send a Strava activity to geojson.io</h2>
+<p class="center">First, you'll need to authenticate with Strava.</p>
+<div class="center">
     <a href="https://www.strava.com/oauth/authorize?client_id=196&response_type=code&redirect_uri=http://<%= url %>/activities&scope=view_private&state=registered&approval_prompt=auto">
         <img src="/images/ConnectWithStrava.png">
     </a>
