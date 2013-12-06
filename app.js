@@ -5,14 +5,9 @@ var request = require('request');
 var templates = require('./lib/templates');
 var app = express();
 
-// var settings = JSON.parse(fs.readFileSync('stravaSettings.json', 'utf-8'));
-// console.log("param1", process.env.PARAM1);
-// console.log("param2", process.env.PARAM2);
-// console.log("param3", process.env.PARAM3);
-
 app.use(express.static('assets'));
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'camper' }));
+app.use(express.session({ secret: process.env.PARAM4 }));
 
 // Prompt user to authenticate with Strava.
 app.get('/', function(req, res) {
@@ -124,4 +119,3 @@ function getActivityStream(opts, callback) {
 }
 
 app.listen(process.env.PORT || 3000);
-console.log('Listening on port 3000');
