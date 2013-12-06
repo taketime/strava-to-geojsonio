@@ -12,7 +12,7 @@ var app = express();
 
 app.use(express.static('assets'));
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'joanie' }));
+app.use(express.session({ secret: 'camper' }));
 
 // Prompt user to authenticate with Strava.
 app.get('/', function(req, res) {
