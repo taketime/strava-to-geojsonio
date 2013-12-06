@@ -3,9 +3,10 @@
 <head>
   <meta charset='UTF-8'/>
   <title>Strava to geojson.io</title>
+  <link href='//mapbox.com/base/latest/base.css' rel='stylesheet' />
 </head>
 <body>
-<h3>Export strava rides to geojson.io</h3>
+<h2>Send a Strava activity to geojson.io</h2>
 <p>First, you'll need to authenticate with Strava.</p>
 <div>
     <a href="https://www.strava.com/oauth/authorize?client_id=196&response_type=code&redirect_uri=http://<%= url %>/activities&scope=view_private&state=registered&approval_prompt=auto">

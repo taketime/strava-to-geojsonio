@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h3>Activities (runs or rides)</h3>
+<h2>Last 100 Strava Activities (runs or rides)</h2>
 
 <table id="activities">
     <tr>
