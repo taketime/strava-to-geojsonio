@@ -3,6 +3,7 @@
 <head>
   <meta charset='UTF-8'/>
   <title>Strava to geojson.io</title>
+  <link href='//mapbox.com/base/latest/base.css' rel='stylesheet' />
 </head>
 <body>
 
