@@ -9,7 +9,7 @@ var settings = JSON.parse(fs.readFileSync('stravaSettings.json', 'utf-8'));
 
 app.use(express.static('assets'));
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'joanie' }));
+app.use(express.session({ secret: settings.seshSecret }));
 
 // Prompt user to authenticate with Strava.
 app.get('/', function(req, res) {
