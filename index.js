@@ -109,8 +109,15 @@ function getActivityStream(opts, callback) {
 
         // add arrays of points
         for (var i = 0; i < stream[0].data.length; i++) {
-            //Strava points are reversed
-            feat.geometry.coordinates[0].push(stream[0].data[i].reverse());
+            // Strava points are reversed
+            // Only record every other data point for Chrome.
+            // Record every data point for everything else.
+            if (opts.agent.indexOf('Chrome') > -1) {
+                if (i % 2 === 0)
+                    feat.geometry.coordinates[0].push(stream[0].data[i].reverse());
+            } else {
+                feat.geometry.coordinates[0].push(stream[0].data[i].reverse());
+            }
         }
 
         // Shove in the feature
