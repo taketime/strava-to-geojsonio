@@ -59,6 +59,25 @@ app.get('/activity/:id', function(req, res) {
     });
 });
 
+// Deauthorize access
+app.get('/deauthorize', function(req, res) {
+    request.post({
+        url: 'https://www.strava.com/oauth/deauthorize',
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    }, function(err, resp) {
+        if (err) res.send(500);
+
+        try {
+            var tok = JSON.parse(resp.body);
+            res.send(templates['Deauthorized']());
+        } catch (err) {
+            res.send(500);
+        }
+    });
+});
+
 // Get some activities
 function getActivities(opts, callback) {
     var page = opts.page || 1;

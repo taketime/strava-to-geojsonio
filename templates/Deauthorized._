@@ -1,0 +1,15 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <title>Strava to geojson.io</title>
+  <link href='/css/style.css' rel='stylesheet' />
+</head>
+<body>
+<h2 class="center">You've deauthorized access to your Strava data</h2>
+<div class="center">
+    <p>We no longer have access to your data.</p>
+    <p>Want to export another activity?  <a href="/">Re-authorize</a>.</p>
+<div>
+</body>
+</html>

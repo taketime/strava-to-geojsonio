@@ -23,6 +23,10 @@
     <% }); %>
 </table>
 <hr>
-<p class="footer">Don't want to give access to your Strava data anymore?  <a href="/deauth">Deauthorize access to my Strava data.</a></p>
+<div class="footer">
+<p>Don't want to give access to your Strava data anymore?  <a href="/deauthorize">Deauthorize access to my Strava data.</a></p>
+<p><a href="https://github.com/taketime/strava-to-geojsonio/tree/master">Source code is available on github.</a></p>
+</div>
+
 </body>
 </html>
