@@ -46,7 +46,11 @@ app.get('/activities', function(req, res) {
 
 // Send an activity to geojson.io
 app.get('/activity/:id', function(req, res) {
-    getActivityStream({ id: req.params.id, token: req.session.token }, function(err, act) {
+    getActivityStream({
+        id: req.params.id,
+        token: req.session.token,
+        agent: req.headers['user-agent']
+    }, function(err, act) {
         if (err) {
             res.send(500);
         } else {
