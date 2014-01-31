@@ -3,11 +3,12 @@
 <head>
   <meta charset='UTF-8'/>
   <title>Strava to geojson.io</title>
+  <link href='/css/style.css' rel='stylesheet' />
 </head>
 <body>
-<h3>Export strava rides to geojson.io</h3>
-<p>First, you'll need to authenticate with Strava.</p>
-<div>
+<h2 class="center">Send a Strava activity to geojson.io</h2>
+<p class="center">First, you'll need to authenticate with Strava.</p>
+<div class="center">
     <a href="https://www.strava.com/oauth/authorize?client_id=196&response_type=code&redirect_uri=<%= url %>/activities&scope=view_private&state=registered&approval_prompt=auto">
         <img src="/images/ConnectWithStrava.png">
     </a>

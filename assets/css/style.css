@@ -1,0 +1,46 @@
+.center {
+    text-align: center;
+}
+
+.footer {
+    font-size: 75%;
+    text-align: right;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, 'Lucida Grande', Arial;
+    font-weight: normal;
+    margin: 0;
+}
+
+p {
+    font-family: Helvetica, 'Lucida Grande', Arial;
+}
+
+a {
+    color: #5176AD;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FC4C02;
+}
+
+
+table {
+    font-family: Helvetica, 'Lucida Grande', Arial;
+    font-weight: lighter;
+    width: 100%;
+    border-color: gray;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 5px 0;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
+}
